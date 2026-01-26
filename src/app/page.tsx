@@ -1,7 +1,12 @@
+import { FiCornerDownLeft } from "react-icons/fi";
+
 const Page = () => {
   return (
     <div className="min-h-screen w-full">
-      <div id="overlay" className="h-screen text-white/90 font-[inter-bold] overflow-hidden mask-[linear-gradient(to_top,transparent,black_40%)] [-webkit-mask-image:linear-gradient(to_top,transparent,black_40%)]">
+      <div
+        id="overlay"
+        className="h-screen text-white/90 font-[inter-bold] overflow-hidden mask-[linear-gradient(to_top,transparent,black_40%)] [-webkit-mask-image:linear-gradient(to_top,transparent,black_40%)]"
+      >
         <section
           id="landing-section"
           className="relative min-h-screen w-full flex flex-col justify-center bg-[url('/bg.png')] bg-no-repeat bg-center bg-cover"
@@ -43,9 +48,25 @@ const Page = () => {
       </div>
       <section
         id="generate"
-        className="min-h-screen w-full flex justify-center"
+        className="min-h-screen w-full flex items-center justify-center"
       >
+        <div className="w-full flex flex-col items-center justify-start px-40 font-[inter-regular]">
+          <div className="relative w-full bg-black/5 border border-white shadow-[0_0_3px_1px] shadow-black/50 rounded-xl p-3">
+            <textarea
+              name="chat"
+              id="chat"
+              placeholder="Paste your chat here"
+              className="relative w-full h-30 border-0 outline-0 resize-none"
+            ></textarea>
+            <section className="flex items-center justify-end p-3">
+            <button className="bg-black/80 text-white px-2 py-1 rounded-sm flex items-center gap-1 hover:cursor-pointer">Generate <FiCornerDownLeft /></button>
+            </section>
+          </div>
+        </div>
       </section>
+      <footer className="h-10">
+        <h1 className="text-center text-black/70 font-[inter-regular] text-sm">ⓒ 2026 By Thahir</h1>
+      </footer>
     </div>
   );
 };
