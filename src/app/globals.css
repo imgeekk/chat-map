@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: inter-regular;
+  src: url(../../public/fonts/Inter/Inter_28pt-Regular.ttf);
+}
+
+@font-face {
+  font-family: inter-bold;
+  src: url(../../public/fonts/Inter/Inter_28pt-Medium.ttf);
+}
+
+@font-face {
+  font-family: instrument;
+  src: url(../../public/fonts/InstrumentSerif/InstrumentSerif-Italic.ttf);
+}
+
+html {
+  scroll-behavior: smooth;
+}
