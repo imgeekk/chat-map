@@ -1,15 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCornerDownLeft } from "react-icons/fi";
 import SummaryView from "./components/SummaryView";
 import { GeneratedOutput } from "@/types/output";
+import { buildMindmap } from "@/lib/mindmap";
+import { MindmapView } from "./components/MindmapView";
+import { mindmapToFlow } from "@/lib/mindmap-to-flow";
+import { MindmapFlow } from "./components/MindmapFlow";
+import { MindmapNode } from "@/types/mindmap";
 
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState<GeneratedOutput | null>(null);
+  const [mindmap, setMindmap] = useState<MindmapNode | null>(null);
+  const [flowData, setFlowData] = useState<{nodes: any[]; edges: any[]} | null>(null);
+  // const mindmap = output ? buildMindmap(output) : null;
+  // const mindmapFlow = mindmap ? mindmapToFlow(mindmap) : null;
+
+  useEffect(() => {
+    if(!output) return;
+
+    const tree = buildMindmap(output);
+    setMindmap(tree);
+
+    const flow = mindmapToFlow(tree);
+    setFlowData(flow);
+  }, [output])
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -84,9 +103,9 @@ const Page = () => {
       </div>
       <section
         id="generate"
-        className="min-h-screen w-full flex flex-col items-center justify-start pt-30"
+        className="min-h-screen w-full flex flex-col items-center justify-start pt-30 px-5"
       >
-        <div className="w-full flex flex-col items-center justify-start px-5 font-[inter-regular]">
+        <div className="w-full flex flex-col items-center justify-start font-[inter-regular] mb-20">
           <div
             id="textarea"
             className="relative w-full lg:w-200 bg-white/20 border border-black/20 shadow-xs shadow-black/30 rounded-md p-3"
@@ -115,13 +134,14 @@ const Page = () => {
         </div>
         {loading ? (
           <div>Loading...</div>
-        ) : output ? (
-          <SummaryView data={output} />
         ) : (
-          <div></div>
-        )}
+          flowData && (
+            <MindmapFlow nodes={flowData.nodes} edges={flowData.edges}/>
+          )
+        )
+        }
       </section>
-      <footer className="h-10">
+      <footer className="h-10 mt-40">
         <h1 className="text-center text-black/70 font-[inter-regular] text-sm">
           ⓒ 2026 By Thahir
         </h1>
