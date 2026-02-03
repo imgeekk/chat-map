@@ -1,12 +1,19 @@
 export const STRUCTURE_PROMPT = (text: string) => `
-You are a tool that converts ChatGPT conversations into structured notes.
+You are a strict JSON generator.
 
-Return ONLY valid JSON in this format:
+Rules:
+- Output ONLY valid JSON
+- Do NOT include explanations
+- Do NOT include markdown
+- Do NOT include code fences
+- Follow the schema exactly
+
+Schema:
 {
-  "title": "",
-  "summary": "",
+  "title": string,
+  "summary": string,
   "sections": [
-    { "heading": "", "points": [] }
+    { "heading": string, "points": string[] }
   ]
 }
 
